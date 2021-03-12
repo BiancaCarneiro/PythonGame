@@ -12,7 +12,7 @@ posX = 200
 posY = 350
 menuSelection = True
 gameStart = False
-
+isGaming = True
 pygame.init()
 screen = pygame.display.set_mode(screenSize)
 
@@ -49,10 +49,12 @@ player.rect.y = posY
 
 
 ## THE GAME:
-while 1:
+while isGaming:
    # CONTROLS:
    for event in pygame.event.get():
-      if event.type == pygame.QUIT: sys.exit()#QUIT GAME 
+      if event.type == pygame.QUIT: #QUIT GAME
+         isGaming = False
+         sys.exit() 
       
       # MENU:
       if menuSelection:
@@ -65,12 +67,14 @@ while 1:
                location -= 1
                if location < 0: location = 2
                      
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_RETURN: #PLAYER PRESSED ENTER
                if location == 2: #Starts game
                   gameStart = True 
                   menuSelection = False  
                elif location == 1: screen.blit(testeCreditos, (0, 0)) #Game credits
-               elif location == 0: sys.exit() #Exit game
+               elif location == 0: 
+                  isGaming = False
+                  sys.exit() #Exit game
                else: screen.fill(BLACK) #ERROR          
          
          if location == 2:
